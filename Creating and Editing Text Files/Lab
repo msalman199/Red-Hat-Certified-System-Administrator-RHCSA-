@@ -1,0 +1,86 @@
+Task 1: Creating and Editing Files with nano
+Subtask 1.1: Launching nano and Creating a File
+Open your terminal and run:
+nano first_file.txt
+Observe the interface:
+Bottom bar shows key commands (^ = Ctrl)
+Blinking cursor indicates insert mode
+Subtask 1.2: Basic Text Operations
+Type sample text:
+
+Hello OpenShift!
+This is my first text file.
+Navigation:
+
+Use arrow keys to move cursor
+Ctrl+A: Move to line start
+Ctrl+E: Move to line end
+Save the file:
+
+Ctrl+O (Write Out)
+Press Enter to confirm filename
+Ctrl+X to exit
+Expected Outcome: File first_file.txt created in current directory with your text.
+
+Task 2: Advanced Editing with vi
+Subtask 2.1: Entering vi and Basic Modes
+Create a new file:
+vi second_file.txt
+Understand modes:
+Command mode (default on launch)
+Insert mode (press i to enter)
+Visual mode (press v)
+Subtask 2.2: Editing Operations
+Enter insert mode (i) and add:
+
+Podman Container Basics:
+1. Images
+2. Containers
+3. Pods
+Return to command mode (Esc)
+
+Delete line 2:
+
+Navigate to line 2
+Type dd
+Save and exit:
+
+:wq then Enter
+Troubleshooting Tip: If stuck in insert mode, press Esc multiple times to return to command mode.
+
+Task 3: File Manipulation Commands
+Subtask 3.1: Viewing File Contents
+Use cat:
+cat first_file.txt
+Paginated view with less:
+less second_file.txt
+(Press q to quit)
+Subtask 3.2: File Encoding and Line Endings
+Check file encoding:
+
+file first_file.txt
+(Typically shows "ASCII text")
+
+Convert line endings (LF ↔ CRLF):
+
+# Convert to DOS format
+unix2dos first_file.txt
+
+# Convert back to Unix
+dos2unix first_file.txt
+Key Concept: Unix uses LF (\n), Windows uses CRLF (\r\n)
+
+Task 4: Practical Application
+Subtask 4.1: Create a Podman Configuration Snippet
+Create new file:
+nano podman_config.conf
+Add content:
+[storage]
+driver = "overlay"
+runroot = "/var/run/containers/storage"
+graphroot = "/var/lib/containers/storage"
+Subtask 4.2: Validate File Integrity
+Check for trailing whitespace:
+grep -n '[[:space:]]$' podman_config.conf
+Count lines:
+wc -l podman_config.conf
