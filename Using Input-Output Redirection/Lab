@@ -1,0 +1,118 @@
+Lab Setup
+Open a terminal window
+Verify your environment:
+uname -a
+podman --version
+Task 1: Output Redirection
+Subtask 1.1: Basic Output Redirection (>)
+Create a simple text file using output redirection:
+
+echo "Hello, Red Hat OpenShift!" > greeting.txt
+Verify the file creation and content:
+
+cat greeting.txt
+Expected Output:
+
+Hello, Red Hat OpenShift!
+Overwrite the file with new content:
+
+echo "New content replaces old" > greeting.txt
+cat greeting.txt
+Key Concept: The > operator creates a new file or overwrites existing content.
+
+Subtask 1.2: Appending Output (>>)
+Append additional content to your file:
+
+echo "Additional line" >> greeting.txt
+cat greeting.txt
+Append multiple lines:
+
+echo "Line 3" >> greeting.txt
+echo "Line 4" >> greeting.txt
+cat greeting.txt
+Expected Output:
+
+New content replaces old
+Additional line
+Line 3
+Line 4
+Troubleshooting Tip: If you don't see the expected output, verify you used >> instead of >.
+
+Task 2: Using Pipes
+Subtask 2.1: Basic Pipe Usage
+List files and filter results:
+
+ls -l | grep "greeting"
+Count lines in a file:
+
+cat greeting.txt | wc -l
+Combine multiple pipes:
+
+ps aux | grep podman | wc -l
+Explanation: This shows how many podman processes are running by:
+
+Listing all processes (ps aux)
+Filtering for podman (grep podman)
+Counting results (wc -l)
+Subtask 2.2: Advanced Pipe Operations
+Sort file contents:
+
+cat greeting.txt | sort
+Create a sorted version of the file:
+
+cat greeting.txt | sort > sorted_greeting.txt
+Podman Example: List container images and filter:
+
+podman images | grep -v "<none>"
+Task 3: Error Redirection
+Subtask 3.1: Redirecting Standard Error (2>)
+Generate an error and redirect it:
+
+ls /nonexistent 2> error.log
+cat error.log
+Combine stdout and stderr redirection:
+
+ls /nonexistent /etc/passwd > output.log 2> error.log
+Check both files:
+
+cat output.log
+cat error.log
+Subtask 3.2: Advanced Error Handling
+Redirect both stdout and stderr to the same file:
+
+ls /nonexistent /etc/passwd &> combined.log
+Discard error messages completely:
+
+ls /nonexistent 2> /dev/null
+Podman Example: Handle container errors:
+
+podman run --name testcontainer alpine /bin/false 2> container_error.log
+cat container_error.log
+Task 4: Combined Operations
+Subtask 4.1: Complex Redirection
+Count successful and failed commands:
+
+(ls /etc/passwd /nonexistent | wc -l > success.log) 2> fail.log
+View results:
+
+cat success.log
+cat fail.log
+Subtask 4.2: Practical Application
+Create a system report:
+
+{
+  echo "=== System Report ==="
+  date
+  echo "=== Memory ==="
+  free -h
+  echo "=== Disk Usage ==="
+  df -h
+} > system_report.txt 2> system_errors.log
+Podman Example: Generate container report:
+
+{
+  echo "=== Container Images ==="
+  podman images
+  echo "=== Running Containers ==="
+  podman ps
+} > container_report.txt 2> container_errors.log
