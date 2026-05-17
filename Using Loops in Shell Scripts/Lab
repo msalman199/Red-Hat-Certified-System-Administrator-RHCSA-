@@ -1,0 +1,90 @@
+Task 1: Writing for Loops
+Subtask 1.1: Basic for Loop Syntax
+Open a terminal and create a new script file:
+nano for_script.sh
+Add the following script to iterate over a list of items:
+#!/bin/bash
+echo "Basic for loop example:"
+for fruit in apple banana orange; do
+    echo "I like $fruit"
+done
+Save the file (Ctrl+O, then Enter) and exit (Ctrl+X).
+Make the script executable and run it:
+chmod +x for_script.sh
+./for_script.sh
+Expected Output:
+Basic for loop example:
+I like apple
+I like banana
+I like orange
+Subtask 1.2: Processing Files with for
+Create a script to list all .txt files in the current directory:
+nano file_loop.sh
+Add the following code:
+#!/bin/bash
+echo "List of .txt files:"
+for file in *.txt; do
+    echo "Found file: $file"
+done
+Save, make executable, and run:
+chmod +x file_loop.sh
+./file_loop.sh
+Expected Output: Lists all .txt files in the directory.
+Task 2: Using while and until Loops
+Subtask 2.1: while Loop for Conditional Repetition
+Create a script (while_script.sh) to count from 1 to 5:
+#!/bin/bash
+count=1
+while [ $count -le 5 ]; do
+    echo "Count: $count"
+    ((count++))
+done
+Expected Output:
+Count: 1
+Count: 2
+...
+Count: 5
+Subtask 2.2: until Loop for Reverse Logic
+Create a script (until_script.sh) to count down from 3:
+#!/bin/bash
+count=3
+until [ $count -eq 0 ]; do
+    echo "Countdown: $count"
+    ((count--))
+done
+echo "Done!"
+Expected Output:
+Countdown: 3
+Countdown: 2
+Countdown: 1
+Done!
+Task 3: Combining Loops with Conditionals
+Subtask 3.1: Filtering Files with Loops and if
+Create a script (filter_files.sh) to list only readable files:
+#!/bin/bash
+for file in *; do
+    if [ -r "$file" ]; then
+        echo "Readable file: $file"
+    fi
+done
+Expected Output: Lists all readable files in the directory.
+Subtask 3.2: Loop Control with break and continue
+Create a script (control_loop.sh) to exit early if a file is found:
+#!/bin/bash
+for num in {1..10}; do
+    if [ $num -eq 5 ]; then
+        break
+    fi
+    echo "Number: $num"
+done
+echo "Loop exited at 5"
+Expected Output:
+Number: 1
+Number: 2
+Number: 3
+Number: 4
+Loop exited at 5
+Troubleshooting Tips
+Permission Denied: Ensure scripts are executable (chmod +x script.sh).
+Syntax Errors: Use bash -n script.sh to check for syntax issues.
+Infinite Loops: Press Ctrl+C to terminate unintended infinite loops.
