@@ -1,0 +1,101 @@
+Task 1: Capturing Command Output
+Subtask 1.1: Using Backticks
+Backticks (`) are the traditional method for command substitution.
+
+Open a terminal and try this basic example:
+
+echo "Today is `date`"
+Expected Output:
+Today is [current date and time]
+
+Create a script named backtick_example.sh:
+
+#!/bin/bash
+files=`ls -l`
+echo "Files in this directory:"
+echo "$files"
+Make it executable and run:
+
+chmod +x backtick_example.sh
+./backtick_example.sh
+Subtask 1.2: Using $() Syntax
+The $() syntax is preferred as it's more readable and nests better.
+
+Try this in your terminal:
+
+echo "Current user: $(whoami)"
+Create a script dollar_parenthesis.sh:
+
+#!/bin/bash
+process_count=$(ps aux | wc -l)
+echo "Number of running processes: $process_count"
+Run the script:
+
+chmod +x dollar_parenthesis.sh
+./dollar_parenthesis.sh
+Key Concept:
+$() is now preferred over backticks because:
+
+Easier to read and nest
+More consistent with other shell syntax
+Less prone to quoting issues
+Task 2: Storing Command Output in Variables
+Subtask 2.1: Basic Variable Assignment
+Try these commands in your terminal:
+
+current_dir=$(pwd)
+echo "You are in: $current_dir"
+Create a script system_info.sh:
+
+#!/bin/bash
+kernel_version=$(uname -r)
+hostname=$(hostname)
+echo "System Information:"
+echo "Kernel: $kernel_version"
+echo "Hostname: $hostname"
+Subtask 2.2: Multi-line Output Handling
+Create a script multi_line.sh:
+#!/bin/bash
+# Capture multi-line output
+disk_info=$(df -h)
+
+echo "Disk Usage Information:"
+echo "$disk_info" | grep -v "tmpfs"
+Troubleshooting Tip:
+If you get unexpected results, try quoting your variable ("$var") to preserve whitespace and special characters.
+
+Task 3: Processing Captured Output
+Subtask 3.1: Filtering Output
+Create a script process_users.sh:
+#!/bin/bash
+# Get logged-in users, extract usernames, and count
+users=$(who | awk '{print $1}')
+user_count=$(echo "$users" | wc -l)
+
+echo "Current Users:"
+echo "$users"
+echo "Total users logged in: $user_count"
+Subtask 3.2: Using Output in Calculations
+Create a script disk_check.sh:
+#!/bin/bash
+# Get available disk space in / (in GB)
+avail_space=$(df -BG / | awk 'NR==2 {print $4}' | tr -d 'G')
+
+if [ "$avail_space" -lt 5 ]; then
+    echo "Warning: Only ${avail_space}GB remaining in root!"
+else
+    echo "Disk space OK: ${avail_space}GB available"
+fi
+Subtask 3.3: Advanced Processing with Arrays
+Try this array example:
+#!/bin/bash
+# Capture lines with ip addresses
+ip_lines=$(ip a | grep 'inet ')
+
+# Read into array
+readarray -t ips <<< "$ip_lines"
+
+echo "Network Interfaces:"
+for ip in "${ips[@]}"; do
+    echo "- $ip"
+done
