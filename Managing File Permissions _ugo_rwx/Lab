@@ -1,0 +1,80 @@
+Lab Tasks
+Task 1: View File Permissions with ls -l
+Objective: Learn how to interpret file permissions using the ls -l command.
+
+Step 1: List Files with Detailed Permissions
+Run the following command to view file permissions in the current directory:
+
+ls -l
+Expected Output:
+
+-rw-r--r-- 1 user group 1024 Jun 10 10:00 example.txt
+drwxr-xr-x 2 user group 4096 Jun 10 10:01 directory
+Step 2: Interpret Permission Strings
+File Type:
+- (Regular file)
+d (Directory)
+Permissions:
+rw- (Owner: Read & Write)
+r-- (Group: Read-only)
+r-- (Others: Read-only)
+Key Concept:
+
+u (User/Owner), g (Group), o (Others)
+r (Read), w (Write), x (Execute)
+Task 2: Change File Permissions Using chmod
+Objective: Modify file permissions using symbolic and numeric modes.
+
+Step 1: Change Permissions Symbolically
+Grant execute permission to the owner of example.txt:
+
+chmod u+x example.txt
+Verify changes:
+
+ls -l example.txt
+Expected Output:
+
+-rwxr--r-- 1 user group 1024 Jun 10 10:00 example.txt
+Step 2: Change Permissions Numerically
+Set permissions to rw-r----- (640) for example.txt:
+
+chmod 640 example.txt
+Verify changes:
+
+ls -l example.txt
+Expected Output:
+
+-rw-r----- 1 user group 1024 Jun 10 10:00 example.txt
+Key Concept:
+
+4 (Read), 2 (Write), 1 (Execute)
+6 (4+2 = Read+Write), 4 (4+0 = Read-only)
+Troubleshooting Tip:
+If permission denied, ensure you have sufficient privileges (sudo may be required).
+
+Task 3: Modify File Ownership Using chown and chgrp
+Objective: Change file owner and group ownership.
+
+Step 1: Change File Owner
+Change the owner of example.txt to a different user (newuser):
+
+sudo chown newuser example.txt
+Verify changes:
+
+ls -l example.txt
+Expected Output:
+
+-rw-r----- 1 newuser group 1024 Jun 10 10:00 example.txt
+Step 2: Change File Group
+Change the group of example.txt to newgroup:
+
+sudo chgrp newgroup example.txt
+Verify changes:
+
+ls -l example.txt
+Expected Output:
+
+-rw-r----- 1 newuser newgroup 1024 Jun 10 10:00 example.txt
+Key Concept:
+
+chown modifies both owner and group (chown user:group file)
