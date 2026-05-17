@@ -1,0 +1,88 @@
+Lab Tasks
+Task 1: Creating Archives with tar
+Objective: Learn to create archives using tar.
+
+Subtask 1.1: Create a Basic Tar Archive
+Create a directory and some sample files:
+mkdir lab_files
+cd lab_files
+touch file1.txt file2.txt file3.txt
+echo "This is file1" > file1.txt
+echo "This is file2" > file2.txt
+echo "This is file3" > file3.txt
+Create a .tar archive:
+tar -cvf archive.tar file1.txt file2.txt file3.txt
+-c: Create a new archive.
+-v: Verbose output (optional).
+-f: Specify the archive filename.
+Expected Outcome:
+An archive.tar file is created containing the three files.
+
+Subtask 1.2: View Contents of a Tar Archive
+tar -tvf archive.tar
+-t: List contents of the archive.
+Expected Outcome:
+A list of files (file1.txt, file2.txt, file3.txt) is displayed.
+
+Task 2: Compressing Files with gzip and bzip2
+Objective: Compress files using gzip and bzip2.
+
+Subtask 2.1: Compress with gzip
+Compress archive.tar:
+
+gzip archive.tar
+This creates archive.tar.gz.
+Verify compression:
+
+ls -lh archive.tar.gz
+Expected Outcome:
+A compressed archive.tar.gz file is created.
+
+Subtask 2.2: Compress with bzip2
+Recreate the tar archive (if needed):
+tar -cvf archive.tar file1.txt file2.txt file3.txt
+Compress with bzip2:
+bzip2 archive.tar
+This creates archive.tar.bz2.
+Expected Outcome:
+A compressed archive.tar.bz2 file is created.
+
+Task 3: Extracting and Decompressing Files
+Objective: Extract and decompress archived files.
+
+Subtask 3.1: Decompress and Extract .tar.gz
+Decompress:
+gunzip archive.tar.gz
+Extract:
+tar -xvf archive.tar
+-x: Extract files.
+Expected Outcome:
+The original files (file1.txt, file2.txt, file3.txt) are restored.
+
+Subtask 3.2: Decompress and Extract .tar.bz2
+Decompress:
+bunzip2 archive.tar.bz2
+Extract:
+tar -xvf archive.tar
+Expected Outcome:
+The original files are restored.
+
+Task 4: Combining and Compressing Multiple Files
+Objective: Archive and compress multiple files in one step.
+
+Subtask 4.1: Create a Compressed Tar Archive Directly
+Create .tar.gz in one command:
+
+tar -czvf combined.tar.gz file1.txt file2.txt file3.txt
+-z: Compress using gzip.
+Create .tar.bz2 in one command:
+
+tar -cjvf combined.tar.bz2 file1.txt file2.txt file3.txt
+-j: Compress using bzip2.
+Expected Outcome:
+Compressed archives (combined.tar.gz and combined.tar.bz2) are created.
+
+Troubleshooting Tips
+"No such file or directory": Ensure files exist before archiving.
+Permission issues: Use sudo if required.
+Corrupted archives: Verify integrity using tar -tvf.
