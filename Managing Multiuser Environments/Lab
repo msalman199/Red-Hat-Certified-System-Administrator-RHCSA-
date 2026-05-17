@@ -1,0 +1,100 @@
+Setup Requirements
+Ensure you have at least 2 non-root accounts created:
+sudo useradd user1
+sudo useradd user2
+sudo passwd user1
+sudo passwd user2
+Lab Tasks
+Task 1: Log in as different users using su and sudo
+Subtask 1.1: Switch users with su
+Open a terminal on your Linux system
+
+Switch to user1:
+
+su - user1
+Verify your current user:
+
+whoami
+Expected Output: user1
+
+Return to your original user:
+
+exit
+Subtask 1.2: Execute commands with sudo
+As a regular user, try viewing the /etc/shadow file:
+
+cat /etc/shadow
+Expected Outcome: Permission denied error
+
+Now try with sudo:
+
+sudo cat /etc/shadow
+Expected Outcome: If you have sudo privileges, you'll see the file contents
+
+Check your sudo privileges:
+
+sudo -l
+Troubleshooting Tip: If you get "user is not in the sudoers file", your account needs to be added to the sudo group:
+
+sudo usermod -aG sudo yourusername
+Task 2: Switch between users and understand permissions
+Subtask 2.1: Create and test file access
+As user1, create a file:
+
+su - user1
+touch ~/user1_file.txt
+echo "This is user1's file" > ~/user1_file.txt
+As user2, try to access the file:
+
+su - user2
+cat /home/user1/user1_file.txt
+Expected Outcome: Permission denied
+
+Examine the file permissions:
+
+ls -l /home/user1/user1_file.txt
+Subtask 2.2: Modify file permissions
+As user1, change the file permissions:
+
+su - user1
+chmod 644 ~/user1_file.txt
+As user2, try accessing again:
+
+su - user2
+cat /home/user1/user1_file.txt
+Expected Outcome: Now you can read the file
+
+Key Concept: Linux file permissions (read=4, write=2, execute=1) control access for owner, group, and others.
+
+Task 3: Configure multiuser targets
+Subtask 3.1: Check current target
+View the current system target:
+systemctl get-default
+Common Outputs:
+graphical.target (GUI mode)
+multi-user.target (text mode)
+Subtask 3.2: Change between targets
+Switch to multi-user (text) target:
+
+sudo systemctl isolate multi-user.target
+Switch back to graphical target:
+
+sudo systemctl isolate graphical.target
+Set the default target (persistent across reboots):
+
+sudo systemctl set-default multi-user.target
+Troubleshooting Tip: If you lose GUI access, you can switch back from a text console with:
+
+sudo systemctl start gdm  # or lightdm, depending on your display manager
+Advanced Task: Container User Management with Podman
+Run a container as a specific user:
+
+podman run --user 1000 -it fedora /bin/bash
+Check the user inside the container:
+
+whoami
+Expected Output: You'll see you're user with UID 1000
+
+Exit the container:
+
+exit
