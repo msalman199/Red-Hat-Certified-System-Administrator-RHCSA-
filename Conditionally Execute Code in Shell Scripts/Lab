@@ -1,0 +1,104 @@
+Task 1: Using if, elif, and else for Conditional Execution
+Subtask 1.1: Basic if Statement
+Open a terminal and create a new script:
+nano basic_if.sh
+Add the following code:
+#!/bin/bash
+read -p "Enter a number: " num
+if [ $num -gt 10 ]; then
+    echo "The number is greater than 10."
+fi
+Save (Ctrl+O) and exit (Ctrl+X).
+Make the script executable:
+chmod +x basic_if.sh
+Run the script:
+./basic_if.sh
+Expected Output: If you enter 15, it prints "The number is greater than 10."
+Subtask 1.2: Using elif and else
+Create a new file:
+nano if_elif_else.sh
+Add this script:
+#!/bin/bash
+read -p "Enter a number: " num
+if [ $num -gt 10 ]; then
+    echo "Greater than 10."
+elif [ $num -eq 10 ]; then
+    echo "Equal to 10."
+else
+    echo "Less than 10."
+fi
+Save, make executable, and run:
+chmod +x if_elif_else.sh
+./if_elif_else.sh
+Expected Output:
+Input 12 → "Greater than 10."
+Input 10 → "Equal to 10."
+Input 5 → "Less than 10."
+Task 2: Performing Tests (File Checks, String Comparisons)
+Subtask 2.1: File Existence Check
+Create a script:
+nano file_check.sh
+Add the following:
+#!/bin/bash
+if [ -f "/etc/passwd" ]; then
+    echo "File /etc/passwd exists."
+else
+    echo "File not found."
+fi
+Run the script:
+chmod +x file_check.sh
+./file_check.sh
+Expected Output: "File /etc/passwd exists."
+Subtask 2.2: String Comparison
+Create a script:
+nano string_compare.sh
+Add this code:
+#!/bin/bash
+read -p "Enter 'yes' or 'no': " answer
+if [ "$answer" = "yes" ]; then
+    echo "You agreed."
+elif [ "$answer" = "no" ]; then
+    echo "You disagreed."
+else
+    echo "Invalid input."
+fi
+Execute the script:
+chmod +x string_compare.sh
+./string_compare.sh
+Expected Output:
+Input yes → "You agreed."
+Input no → "You disagreed."
+Input maybe → "Invalid input."
+Task 3: Using [ ] vs. test Commands
+Subtask 3.1: Using test Command
+Create a script:
+nano test_command.sh
+Add the following:
+#!/bin/bash
+read -p "Enter a number: " num
+if test $num -lt 5; then
+    echo "Number is less than 5."
+else
+    echo "Number is 5 or greater."
+fi
+Run the script:
+chmod +x test_command.sh
+./test_command.sh
+Expected Output:
+Input 3 → "Number is less than 5."
+Input 7 → "Number is 5 or greater."
+Subtask 3.2: Using [ ] (Preferred Syntax)
+Modify the above script to use [ ]:
+#!/bin/bash
+read -p "Enter a number: " num
+if [ $num -lt 5 ]; then
+    echo "Number is less than 5."
+else
+    echo "Number is 5 or greater."
+fi
+Note: [ ] is functionally identical to test but more readable.
+Troubleshooting Tips
+Error: [: missing ]
+Fix: Ensure spaces around [ and ] (e.g., [ $var -eq 5 ]).
+Error: "unary operator expected"
+Fix: Quote variables (e.g., [ "$var" = "value" ]).
