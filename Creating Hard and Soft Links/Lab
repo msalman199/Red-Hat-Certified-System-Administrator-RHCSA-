@@ -1,0 +1,78 @@
+Task 1: Create and Delete Hard Links
+Subtask 1.1: Create a Sample File
+Open a terminal and create a working directory:
+mkdir link_lab && cd link_lab
+Create a sample file with some content:
+echo "This is the original file." > original.txt
+Verify the file creation:
+cat original.txt
+Expected Output:
+This is the original file.
+Subtask 1.2: Create a Hard Link
+Use the ln command to create a hard link:
+ln original.txt hardlink.txt
+Verify the hard link creation:
+ls -li
+Expected Outcome:
+Both original.txt and hardlink.txt will show the same inode number, indicating they point to the same data block.
+Subtask 1.3: Test Hard Link Behavior
+Modify the content via the hard link:
+echo "Appended via hard link." >> hardlink.txt
+Check both files:
+cat original.txt
+cat hardlink.txt
+Expected Outcome:
+Both files will show the same updated content.
+Subtask 1.4: Delete the Hard Link
+Remove the hard link:
+rm hardlink.txt
+Verify the original file still exists:
+cat original.txt
+Expected Outcome:
+The original file remains intact.
+Task 2: Create and Delete Symbolic (Soft) Links
+Subtask 2.1: Create a Symbolic Link
+Create a symbolic link to original.txt:
+ln -s original.txt symlink.txt
+Verify the symbolic link:
+ls -l
+Expected Outcome:
+symlink.txt will show as a symbolic link pointing to original.txt.
+Subtask 2.2: Test Symbolic Link Behavior
+Access the file via the symbolic link:
+
+cat symlink.txt
+Expected Outcome:
+The content of original.txt is displayed.
+
+Delete the original file:
+
+rm original.txt
+Attempt to access the symbolic link:
+
+cat symlink.txt
+Expected Outcome:
+An error (No such file or directory) appears because the symbolic link is now broken.
+
+Subtask 2.3: Recreate and Delete the Symbolic Link
+Recreate the original file:
+echo "New content." > original.txt
+Verify the symbolic link works again:
+cat symlink.txt
+Remove the symbolic link:
+rm symlink.txt
+Task 3: Manage Links Across Filesystems
+Subtask 3.1: Attempt to Create a Hard Link Across Filesystems
+Identify a different filesystem (e.g., /tmp is often a separate mount):
+df -h /tmp
+Try creating a hard link to a file in another filesystem:
+ln original.txt /tmp/hardlink_fail.txt
+Expected Outcome:
+Error: Invalid cross-device link (hard links cannot span filesystems).
+Subtask 3.2: Create a Symbolic Link Across Filesystems
+Create a symbolic link to a file in another filesystem:
+ln -s $(pwd)/original.txt /tmp/symlink_success.txt
+Verify the symbolic link:
+cat /tmp/symlink_success.txt
+Expected Outcome:
+The content of original.txt is displayed.
