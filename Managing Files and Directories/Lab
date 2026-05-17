@@ -1,0 +1,51 @@
+Task 1: Creating Directories Using mkdir
+Subtask 1.1: Create a Single Directory
+Open a terminal.
+Use the mkdir command to create a directory named lab_files:
+mkdir lab_files
+Verify the directory was created:
+ls
+Expected Output: lab_files should appear in the list of directories.
+Subtask 1.2: Create Nested Directories
+Create a nested directory structure (parent/child/grandchild) using the -p flag:
+mkdir -p parent/child/grandchild
+Verify the structure:
+tree parent
+Expected Output:
+parent/
+└── child
+    └── grandchild
+Task 2: Moving, Copying, and Deleting Files
+Subtask 2.1: Move Files Using mv
+Create a sample file:
+touch sample.txt
+Move the file to the lab_files directory:
+mv sample.txt lab_files/
+Verify the file was moved:
+ls lab_files/
+Expected Output: sample.txt should appear in lab_files.
+Subtask 2.2: Copy Files Using cp
+Copy sample.txt to a new file named sample_copy.txt:
+cp lab_files/sample.txt lab_files/sample_copy.txt
+Verify the copy:
+ls lab_files/
+Expected Output: Both sample.txt and sample_copy.txt should appear.
+Subtask 2.3: Delete Files Using rm
+Delete sample_copy.txt:
+rm lab_files/sample_copy.txt
+Verify the deletion:
+ls lab_files/
+Expected Output: Only sample.txt should remain.
+Task 3: Advanced Directory Management
+Subtask 3.1: Delete Directories Using rmdir and rm
+Attempt to delete the grandchild directory (empty directory):
+rmdir parent/child/grandchild
+Delete the entire parent directory (including non-empty subdirectories):
+rm -r parent
+Note: The -r flag recursively deletes directories and their contents.
+Subtask 3.2: Wildcard Operations
+Create multiple test files:
+touch lab_files/file{1..5}.txt
+Delete all .txt files in lab_files:
+rm lab_files/*.txt
+Expected Output: The lab_files directory should be empty.
