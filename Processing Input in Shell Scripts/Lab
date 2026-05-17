@@ -1,0 +1,72 @@
+Task 1: Using Positional Parameters
+Subtask 1.1: Create a Script with Positional Parameters
+Open a terminal and create a new script file:
+nano input_script.sh
+Add the following script to accept and display positional parameters:
+#!/bin/bash
+echo "First argument: $1"
+echo "Second argument: $2"
+echo "All arguments: $@"
+echo "Total arguments: $#"
+Save the file (Ctrl+O, Enter, Ctrl+X) and make it executable:
+chmod +x input_script.sh
+Subtask 1.2: Execute the Script with Arguments
+Run the script with sample arguments:
+./input_script.sh apple banana cherry
+Expected Output:
+First argument: apple
+Second argument: banana
+All arguments: apple banana cherry
+Total arguments: 3
+Key Concept
+$1, $2, etc., represent the 1st, 2nd, etc., arguments passed to the script.
+$@ expands to all positional parameters, and $# gives the count.
+Task 2: Parsing User Input
+Subtask 2.1: Read Input During Execution
+Modify input_script.sh to include interactive input:
+#!/bin/bash
+read -p "Enter your name: " name
+echo "Hello, $name! You provided $# arguments."
+Run the script:
+./input_script.sh
+Expected Outcome: The script prompts for your name and greets you.
+Subtask 2.2: Modify Behavior Based on Input
+Update the script to check input:
+#!/bin/bash
+if [ $# -eq 0 ]; then
+  read -p "Enter a directory path: " path
+else
+  path=$1
+fi
+ls -l $path
+Test both scenarios:
+./input_script.sh /tmp       # Uses positional parameter
+./input_script.sh            # Prompts for input
+Troubleshooting Tip
+Use -z "$path" to check for empty input if the user presses Enter without typing.
+Task 3: Graceful Error Handling
+Subtask 3.1: Validate Input
+Enhance the script to validate the directory:
+#!/bin/bash
+if [ $# -eq 0 ]; then
+  read -p "Enter a directory path: " path
+else
+  path=$1
+fi
+
+if [ ! -d "$path" ]; then
+  echo "Error: $path is not a valid directory." >&2
+  exit 1
+fi
+ls -l $path
+Expected Behavior: Exits with an error if the path is invalid.
+Subtask 3.2: Use set -e for Automatic Error Handling
+Add set -e at the script’s start to exit on any error:
+#!/bin/bash
+set -e
+[ -z "$1" ] && read -p "Enter a number: " num || num=$1
+echo "Result: $((num * 2))"
+Test: Run with invalid input (e.g., non-numeric) to see the script exit.
+Key Concept
+>&2 redirects error messages to stderr.
+exit 1 indicates failure (non-zero exit codes are errors).
