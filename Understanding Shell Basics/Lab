@@ -1,0 +1,120 @@
+Task 1: Learn About Shell Commands and Their Structure
+Subtask 1.1: Understanding Command Syntax
+Shell commands typically follow this structure:
+
+command [options] [arguments]
+Command: The program or utility to execute.
+Options: Modify the behavior of the command (usually prefixed with - or --).
+Arguments: The targets or inputs for the command.
+Example:
+
+ls -l /home
+ls is the command.
+-l is an option (long listing format).
+/home is the argument (directory to list).
+Expected Outcome:
+Understand the basic structure of shell commands.
+
+Task 2: Experiment with Basic Shell Commands
+Subtask 2.1: Listing Files (ls)
+The ls command lists directory contents.
+
+Steps:
+
+Open a terminal.
+
+Type the following command:
+
+ls
+Lists files and directories in the current folder.
+Use the -l option for detailed output:
+
+ls -l
+Shows permissions, owner, size, and modification time.
+List hidden files (those starting with .):
+
+ls -a
+Expected Outcome:
+See a list of files and directories in the current folder.
+
+Troubleshooting Tip:
+If you get command not found, ensure you are in a valid directory or check for typos.
+
+Subtask 2.2: Print Working Directory (pwd)
+The pwd command displays the current directory path.
+
+Steps:
+
+Run:
+pwd
+Outputs something like /home/username.
+Expected Outcome:
+The absolute path of your current working directory.
+
+Subtask 2.3: Change Directory (cd)
+The cd command navigates between directories.
+
+Steps:
+
+Move to your home directory:
+
+cd ~
+or
+
+cd
+Move to a specific directory (e.g., /tmp):
+
+cd /tmp
+Go back one directory level:
+
+cd ..
+Check your current directory with pwd.
+
+Expected Outcome:
+Successfully navigate between directories.
+
+Troubleshooting Tip:
+If you get No such file or directory, verify the path exists.
+
+Task 3: Manage Input/Output with the Shell
+Subtask 3.1: Output Redirection (>)
+Redirect command output to a file instead of the terminal.
+
+Steps:
+
+List files and save the output to file_list.txt:
+
+ls -l > file_list.txt
+View the file:
+
+cat file_list.txt
+Expected Outcome:
+The output of ls -l is saved in file_list.txt.
+
+Subtask 3.2: Append Output (>>)
+Append output to an existing file.
+
+Steps:
+
+Append the current date to file_list.txt:
+
+date >> file_list.txt
+Check the file:
+
+cat file_list.txt
+Expected Outcome:
+The date is added to the end of file_list.txt.
+
+Subtask 3.3: Input Redirection (<)
+Use file content as input for a command.
+
+Steps:
+
+Create a file names.txt with some names:
+
+echo -e "Alice\nBob\nCharlie" > names.txt
+Sort the names:
+
+sort < names.txt
+Expected Outcome:
+The names are sorted alphabetically.
