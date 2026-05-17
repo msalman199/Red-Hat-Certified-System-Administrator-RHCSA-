@@ -1,0 +1,79 @@
+Task 1: Using man and info for Documentation
+Subtask 1.1: Using man Pages
+Open a terminal and type the following command to view the manual page for the ls command:
+
+man ls
+Use arrow keys to navigate
+Press /search_term to search (e.g., /recursive)
+Press q to quit
+Search for a specific section in the man page:
+
+man 5 passwd
+This shows documentation for the /etc/passwd file format (section 5)
+List all available sections for a command:
+
+man -f passwd
+Expected Outcome: You should see detailed documentation for the ls command and the /etc/passwd file structure.
+
+Subtask 1.2: Using info Pages
+View the info documentation for coreutils (includes basic commands like ls, cp):
+
+info coreutils
+Navigate with arrow keys
+Press Enter on hyperlinked items
+Press q to quit
+Search for a specific topic:
+
+info coreutils ls invocation
+Expected Outcome: You should see structured documentation with hyperlinks for GNU core utilities.
+
+Task 2: Navigating and Searching Documentation
+Subtask 2.1: Searching Man Pages
+Search for man pages containing "network":
+
+man -k network
+or (equivalent):
+
+apropos network
+Update the man page database (if results are outdated):
+
+sudo mandb
+Expected Outcome: A list of man pages related to "network".
+
+Subtask 2.2: Using --help and -h Flags
+Get quick help for grep:
+grep --help
+or:
+grep -h
+Expected Outcome: A concise help message showing command options.
+
+Task 3: Accessing Package-Specific Documentation
+Subtask 3.1: Exploring /usr/share/doc
+List documentation for installed packages:
+
+ls /usr/share/doc
+View documentation for a specific package (e.g., bash):
+
+ls /usr/share/doc/bash
+Read a README file (example for bash):
+
+less /usr/share/doc/bash/README
+Expected Outcome: You should see package-specific documentation files (READMEs, changelogs, licenses).
+
+Subtask 3.2: Installing Documentation for a Package
+Install the httpd (Apache) documentation:
+
+sudo dnf install httpd-manual  # RHEL/Fedora/CentOS
+or:
+
+sudo apt install apache2-doc   # Debian/Ubuntu
+Access the documentation:
+
+ls /usr/share/doc/httpd-manual
+Expected Outcome: Additional documentation files for the httpd package.
+
+Troubleshooting Tips
+If man or info commands don't work, install them:
+sudo dnf install man-db info  # RHEL/Fedora/CentOS
+sudo apt install man-db info  # Debian/Ubuntu
+If /usr/share/doc is empty, some packages may not install docs by default. Use dnf or apt to install -doc or -doc sub-packages.
