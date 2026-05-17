@@ -1,0 +1,52 @@
+Task 1: Set Up and Connect to a Remote System Using SSH
+Subtask 1.1: Verify SSH Installation
+Check if the SSH client is installed on your local machine:
+
+ssh -V
+Outcome: You should see the SSH version (e.g., OpenSSH_8.9p1).
+Troubleshooting: If not installed, install it using:
+Ubuntu/Debian:
+sudo apt update && sudo apt install openssh-client -y
+CentOS/RHEL/Fedora:
+sudo dnf install openssh-clients -y
+Ensure the SSH server is running on the remote machine:
+
+sudo systemctl status sshd
+Outcome: The service should be active (running).
+Troubleshooting: If not running, start it with:
+sudo systemctl start sshd && sudo systemctl enable sshd
+Subtask 1.2: Connect to the Remote Server
+Use the following command to connect:
+
+ssh username@remote_server_ip
+Replace username with your remote user and remote_server_ip with the server’s IP.
+Outcome: You will be prompted for the remote user’s password.
+After successful authentication, you should see the remote server’s command prompt.
+
+Task 2: Implement SSH Key-Based Authentication
+Subtask 2.1: Generate SSH Key Pair
+On your local machine, generate an SSH key pair:
+ssh-keygen -t ed25519 -C "your_email@example.com"
+Explanation:
+-t ed25519: Uses the Ed25519 algorithm (modern and secure).
+-C: Adds a comment (optional).
+Press Enter to accept the default key location (~/.ssh/id_ed25519).
+Outcome: A public (id_ed25519.pub) and private (id_ed25519) key pair is created.
+Subtask 2.2: Copy the Public Key to the Remote Server
+Use ssh-copy-id to transfer the public key:
+
+ssh-copy-id -i ~/.ssh/id_ed25519.pub username@remote_server_ip
+Outcome: The public key is added to ~/.ssh/authorized_keys on the remote server.
+Verify key-based authentication:
+
+ssh username@remote_server_ip
+Expected Result: You should log in without a password.
+Task 3: Securely Transfer Files Using scp
+Subtask 3.1: Copy a File from Local to Remote
+Transfer a local file (localfile.txt) to the remote server:
+scp localfile.txt username@remote_server_ip:/remote/directory/
+Outcome: The file is securely copied to the remote directory.
+Subtask 3.2: Copy a File from Remote to Local
+Retrieve a file (remotefile.txt) from the remote server:
+scp username@remote_server_ip:/remote/directory/remotefile.txt ~/local/directory/
+Outcome: The file is downloaded to your local machine.
