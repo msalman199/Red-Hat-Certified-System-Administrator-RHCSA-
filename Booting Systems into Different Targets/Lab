@@ -1,0 +1,65 @@
+Task 1: Boot into Multi-User, Graphical, or Rescue Mode
+Subtask 1.1: Check Current Target
+Open a terminal.
+Run the following command to check the current target:
+systemctl get-default
+Expected Output:
+graphical.target (default for most desktop systems) or multi-user.target (for servers).
+Subtask 1.2: Boot into Multi-User Mode (No GUI)
+To switch to multi-user mode (command-line only):
+
+sudo systemctl isolate multi-user.target
+Expected Outcome:
+The GUI will exit, and the system will switch to a text-based login.
+
+Verify the change:
+
+systemctl get-default
+Expected Output:
+multi-user.target
+
+Subtask 1.3: Boot into Graphical Mode
+To return to the graphical mode:
+sudo systemctl isolate graphical.target
+Expected Outcome:
+The GUI will start, and you will see the desktop environment.
+Subtask 1.4: Boot into Rescue Mode (Emergency Shell)
+Reboot the system and interrupt the boot process (press e in GRUB).
+Append systemd.unit=rescue.target to the kernel command line.
+Press Ctrl+X to boot. Expected Outcome:
+The system boots into a minimal rescue shell (single-user mode).
+Task 2: Understand and Configure systemd Targets
+Subtask 2.1: List Available Targets
+List all available targets:
+systemctl list-units --type=target --all
+Expected Output:
+A list of targets (multi-user.target, graphical.target, rescue.target, etc.).
+Subtask 2.2: Set Default Target
+To set multi-user.target as the default:
+
+sudo systemctl set-default multi-user.target
+Verification:
+
+systemctl get-default
+Expected Output:
+multi-user.target
+
+Revert to graphical.target (if needed):
+
+sudo systemctl set-default graphical.target
+Task 3: Practice Switching Between Targets
+Subtask 3.1: Temporarily Switch to a Different Target
+Switch to multi-user.target without setting it as default:
+
+sudo systemctl isolate multi-user.target
+Expected Outcome:
+The system switches to CLI mode.
+
+Switch back to graphical.target:
+
+sudo systemctl isolate graphical.target
+Subtask 3.2: Reboot into a Specific Target
+To reboot directly into rescue.target:
+sudo systemctl reboot --boot-loader-entry=rescue.target
+Expected Outcome:
+The system reboots into rescue mode.
