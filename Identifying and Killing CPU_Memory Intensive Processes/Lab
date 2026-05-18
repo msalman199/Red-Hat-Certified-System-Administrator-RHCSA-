@@ -1,0 +1,65 @@
+Task 1: Monitoring Processes with top and ps
+Subtask 1.1: Using the top command
+Open a terminal and run:
+
+top
+Observe the real-time system summary:
+
+CPU usage (us: user, sy: system, ni: nice, id: idle)
+Memory usage (total, free, used, buff/cache)
+Process list sorted by CPU usage by default
+While in top:
+
+Press M to sort by memory usage
+Press P to return to CPU sorting
+Press q to quit
+Subtask 1.2: Using ps for process analysis
+To list all running processes with CPU and memory info:
+ps aux
+To find the top 5 CPU-consuming processes:
+ps aux --sort=-%cpu | head -6
+To find the top 5 memory-consuming processes:
+ps aux --sort=-%mem | head -6
+Expected Output:
+You should see a list of processes with their PID, CPU%, MEM%, and command details.
+
+Troubleshooting Tip:
+If ps shows incomplete output, try widening your terminal or piping to less:
+
+ps aux | less
+Task 2: Terminating Processes
+Subtask 2.1: Graceful termination with kill
+Identify a process to terminate (use pidof or pgrep):
+pidof firefox
+or
+pgrep -l firefox
+Send SIGTERM (15) for graceful shutdown:
+kill <PID>
+Verify the process is gone:
+ps -p <PID>
+Subtask 2.2: Forceful termination
+If the process doesn't respond to SIGTERM:
+kill -9 <PID>
+(SIGKILL/9 cannot be ignored by processes)
+Subtask 2.3: Using killall
+To kill all instances of a program:
+killall chrome
+For forceful kill:
+killall -9 chrome
+Warning:
+Be cautious with kill -9 and killall as they can cause data loss or system instability.
+
+Task 3: Process Priority Adjustment
+Subtask 3.1: Launching processes with nice
+Start a process with low priority (higher nice value):
+nice -n 19 tar -czf backup.tar.gz /large_directory
+(Nice values range from -20 [highest priority] to 19 [lowest])
+Subtask 3.2: Adjusting running processes with renice
+Find a running CPU-intensive process:
+top
+Note its PID and current nice value (NI column)
+Change its priority:
+sudo renice -n 10 -p <PID>
+Verify the change in top
+Note:
+Only root can increase priority (lower nice value) of existing processes
