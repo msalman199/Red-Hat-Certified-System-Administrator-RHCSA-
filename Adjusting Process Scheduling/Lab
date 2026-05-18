@@ -1,0 +1,63 @@
+Task 1: Changing Process Priority Using nice and renice
+Subtask 1.1: Launch a Test Process
+Open a terminal.
+Run a CPU-intensive command (e.g., sha1sum /dev/zero) in the background:
+sha1sum /dev/zero &
+Expected Output: The process starts, and its PID is displayed.
+Subtask 1.2: Check Default Priority
+Use ps to check the nice value (NI) of the process:
+ps -l -p $(pgrep sha1sum)
+Expected Output: The NI column shows 0 (default priority).
+Subtask 1.3: Adjust Priority Using nice
+Launch a new instance with a modified priority (-n sets nice value):
+
+nice -n 10 sha1sum /dev/zero &
+Explanation: A higher nice value (10) lowers priority.
+Verify the new nice value:
+
+ps -l -p $(pgrep sha1sum | tail -1)
+Expected Output: The new process shows NI as 10.
+Subtask 1.4: Adjust Priority of Running Process Using renice
+Change the priority of an existing process (replace PID):
+
+sudo renice -n 5 -p $(pgrep sha1sum | head -1)
+Explanation: -n 5 sets a higher priority than 10 but lower than 0.
+Confirm the change:
+
+ps -l -p $(pgrep sha1sum | head -1)
+Expected Output: The NI column updates to 5.
+Task 2: Monitoring Processes with top and htop
+Subtask 2.1: Use top to View Process Stats
+Run top:
+
+top
+Key Observations:
+PR (Priority) and NI (Nice) columns.
+CPU usage per process.
+Press q to exit.
+
+Subtask 2.2: Install and Use htop (If Not Installed)
+Install htop:
+
+sudo apt install htop       # Debian/Ubuntu  
+sudo dnf install htop       # RHEL/CentOS/Fedora  
+Launch htop:
+
+htop
+Key Features:
+Color-coded CPU/memory usage.
+Tree view of processes.
+Interactive priority adjustment (F7/F8).
+Press F10 to exit.
+
+Task 3: Understanding Process States and Dynamic Adjustments
+Subtask 3.1: Identify Process States
+List processes with states (R=Running, S=Sleeping, D=Uninterruptible):
+ps aux
+Subtask 3.2: Kill a Low-Priority Process
+Terminate the sha1sum process:
+kill $(pgrep sha1sum)
+Subtask 3.3: Adjust Scheduling Policy (Optional)
+Use chrt to set a real-time policy (requires sudo):
+sudo chrt -f -p 99 $(pgrep sha1sum)
+Explanation: -f sets FIFO scheduling (priority 99).
